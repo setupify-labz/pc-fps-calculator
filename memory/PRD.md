@@ -53,7 +53,7 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - [x] Mobile responsive design
 - [x] Framer-motion ready (installed)
 - [x] 81 games across 10 categories with searchable, category-grouped dropdown
-- [x] 100% backend test pass rate, 100% frontend
+- [x] "Request a Game" modal — private submissions stored in MongoDB, no personal data collected, admin-only visibility via GET /api/game-requests
 
 ## Backlog / Next Tasks
 
