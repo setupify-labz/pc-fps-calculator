@@ -1,0 +1,144 @@
+{
+  "identity": {
+    "persona": "E1",
+    "mission": "Create a top 1% dark modern gaming UI for an FPS calculator. Fusion of precision tech and immersive gaming aesthetics.",
+    "principles": [
+      "Fusion over Imitation: Mix clean SaaS dashboard precision with gaming immersion.",
+      "Emotion First: The UI should feel 'high-performance' and 'tactical'.",
+      "Content is King: Data (FPS, Specs) is the hero.",
+      "Negative Space: Use deep black voids to let the neon accents pop.",
+      "Contrast: High contrast text for readability in dark mode."
+    ]
+  },
+  "typography": {
+    "font_family": {
+      "headings": "\"Russo One\", sans-serif",
+      "body": "\"Manrope\", sans-serif",
+      "mono": "\"JetBrains Mono\", monospace"
+    },
+    "scale": {
+      "h1": "text-5xl md:text-6xl font-bold uppercase tracking-wider",
+      "h2": "text-3xl md:text-4xl font-bold tracking-wide",
+      "h3": "text-xl md:text-2xl font-semibold",
+      "body_lg": "text-lg font-medium",
+      "body_base": "text-base font-normal",
+      "caption": "text-sm text-muted-foreground",
+      "label": "text-xs font-bold uppercase tracking-widest text-muted-foreground"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@300;400;500;600;700&family=Russo+One&display=swap');"
+    ]
+  },
+  "colors": {
+    "theme": "dark",
+    "palette": {
+      "background": "#0b0d12",
+      "foreground": "#ffffff",
+      "card": "#161a22",
+      "card_foreground": "#ffffff",
+      "popover": "#161a22",
+      "popover_foreground": "#ffffff",
+      "primary": "#00e5ff",
+      "primary_foreground": "#000000",
+      "secondary": "#212631",
+      "secondary_foreground": "#ffffff",
+      "muted": "#161a22",
+      "muted_foreground": "#94a3b8",
+      "accent": "#00e5ff",
+      "accent_foreground": "#000000",
+      "destructive": "#ef4444",
+      "destructive_foreground": "#ffffff",
+      "border": "#2d3342",
+      "input": "#212631",
+      "ring": "#00e5ff"
+    },
+    "utility_classes": {
+      "neon_glow": "shadow-[0_0_15px_rgba(0,229,255,0.3)]",
+      "neon_text": "text-[#00e5ff] drop-shadow-[0_0_5px_rgba(0,229,255,0.5)]",
+      "glass_panel": "bg-[#161a22]/80 backdrop-blur-md border border-white/5",
+      "gradient_text": "bg-clip-text text-transparent bg-gradient-to-r from-[#00e5ff] to-[#0099ff]"
+    }
+  },
+  "layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing": {
+      "section_gap": "py-24",
+      "component_gap": "gap-8"
+    },
+    "grid_system": "Bento Grid Protocol: Use grid-cols-1 md:grid-cols-12 gap-6 for dashboards. Hero: col-span-full. Stats: col-span-4 or col-span-6.",
+    "border_radius": "rounded-xl"
+  },
+  "components": {
+    "button": {
+      "style": "uppercase font-bold tracking-wider transition-all duration-300",
+      "variants": {
+        "default": "bg-primary text-primary-foreground hover:bg-primary/80 hover:shadow-[0_0_20px_rgba(0,229,255,0.4)]",
+        "outline": "border-primary text-primary hover:bg-primary/10"
+      }
+    },
+    "card": {
+      "style": "bg-card border border-white/5 shadow-2xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
+    },
+    "input": {
+      "style": "bg-secondary border-transparent focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all text-white placeholder:text-gray-500"
+    },
+    "select": {
+        "style": "bg-secondary border-transparent focus:ring-primary/50 text-white"
+    },
+    "badge": {
+        "style": "font-mono font-bold uppercase"
+    }
+  },
+  "visual_enhancers": {
+    "textures": "Use subtle noise overlay (opacity 0.03) on the background to prevent banding.",
+    "gradients": "No full screen gradients. Use radial-gradient spots behind key elements (Hero, Result Card) for spotlight effect.",
+    "borders": "1px solid border with 10% opacity white for structure. Active elements get primary color border.",
+    "icons": "Use 'lucide-react' for UI icons (Cpu, Monitor, Zap, Microchip). Use 'simple-icons' for brand logos if needed."
+  },
+  "motion": {
+    "library": "framer-motion",
+    "preferences": {
+      "reduced_motion": "respect-user-settings",
+      "transition_default": { "duration": 0.3, "ease": "easeOut" }
+    },
+    "animations": {
+      "hover_lift": { "scale": 1.02, "y": -2 },
+      "fade_in_up": { "initial": { "opacity": 0, "y": 20 }, "animate": { "opacity": 1, "y": 0 } },
+      "stagger_children": { "staggerChildren": 0.1 }
+    }
+  },
+  "image_urls": {
+    "backgrounds": [
+      {
+        "url": "https://images.unsplash.com/photo-1764258560163-198782335017?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGN5YmVyJTIwdGVjaG5vbG9neSUyMGJhY2tncm91bmQlMjBkYXJrJTIwbmVvbiUyMGN5YW58ZW58MHx8fHwxNzczMzQ0MDkwfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract neon lines on dark background (Primary Background)",
+        "category": "hero_bg"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1762279389006-43963a0cee55?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGN5YmVyJTIwdGVjaG5vbG9neSUyMGJhY2tncm91bmQlMjBkYXJrJTIwbmVvbiUyMGN5YW58ZW58MHx8fHwxNzczMzQ0MDkwfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract neon glow (Secondary/Section Background)",
+        "category": "section_bg"
+      }
+    ]
+  },
+  "instructions_to_main_agent": {
+    "step_1": "Install 'framer-motion' and 'lucide-react' if not present.",
+    "step_2": "Update 'tailwind.config.js' with the color palette and font families provided.",
+    "step_3": "Add the Google Fonts import to 'index.css'.",
+    "step_4": "Create a 'Layout' component that applies the background texture and global styles.",
+    "step_5": "Build the 'HardwareSelector' component using the Bento Grid layout.",
+    "step_6": "Ensure all interactive elements have 'data-testid' attributes.",
+    "step_7": "Use the provided image URLs for section backgrounds where appropriate, applying an overlay to ensure text contrast."
+  },
+  "universal_guidelines": [
+    "Do NOT use 'Inter' for headings. Use 'Russo One'.",
+    "Do NOT use purple or teal for CTAs. Use the specific Neon Cyan #00e5ff.",
+    "Do NOT center everything. Use asymmetry for visual interest.",
+    "Avoid gradient overload. Use gradients only for text or subtle glows.",
+    "Ensure 4.5:1 contrast ratio for text.",
+    "All interactive elements MUST include data-testid.",
+    "Use sonner for toasts.",
+    "Components MUST use named exports.",
+    "Pages MUST use default exports."
+  ]
+}
