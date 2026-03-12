@@ -147,25 +147,121 @@ GPUS = {
 }
 
 # ── base_fps: expected FPS at GPU=100, CPU=100, 1080p, Medium quality ──
-# Calibrated so RTX 5090 + 7950X3D Fortnite 4K hits:
-#   Low:300-400  Medium:220-260  High:180-220  Ultra:140-180  Perf:350-500
+# Calibrated so RTX 5090 + 7950X3D Fortnite 4K hits realistic numbers
+GAME_CATEGORIES = [
+    "Competitive / Esports",
+    "Open World / AAA",
+    "Action RPG",
+    "Racing",
+    "Sandbox / Creative",
+    "Strategy",
+    "Simulation",
+    "Horror / Survival",
+    "MMO",
+    "Multiplayer / Co-op",
+]
+
 GAMES = {
-    "Fortnite":               {"base_fps": 350, "gpu_weight": 0.75, "supports_perf_mode": True},
-    "Call of Duty: Warzone":  {"base_fps": 240, "gpu_weight": 0.82},
-    "Minecraft":              {"base_fps": 600, "gpu_weight": 0.45},
-    "GTA V":                  {"base_fps": 290, "gpu_weight": 0.75},
-    "Valorant":               {"base_fps": 520, "gpu_weight": 0.55},
-    "CS2":                    {"base_fps": 480, "gpu_weight": 0.60},
-    "Apex Legends":           {"base_fps": 370, "gpu_weight": 0.70},
-    "Cyberpunk 2077":         {"base_fps": 200, "gpu_weight": 0.92, "res_4k_mult": 0.44},
-    "Elden Ring":             {"base_fps": 160, "gpu_weight": 0.80},
-    "Red Dead Redemption 2":  {"base_fps": 185, "gpu_weight": 0.87, "res_4k_mult": 0.45},
-    "Rainbow Six Siege":      {"base_fps": 600, "gpu_weight": 0.62},
-    "PUBG":                   {"base_fps": 220, "gpu_weight": 0.78},
-    "Overwatch 2":            {"base_fps": 430, "gpu_weight": 0.62},
-    "Rocket League":          {"base_fps": 700, "gpu_weight": 0.52},
-    "League of Legends":      {"base_fps": 620, "gpu_weight": 0.50},
-    "Dota 2":                 {"base_fps": 480, "gpu_weight": 0.58},
+    # ── Competitive / Esports ──
+    "Fortnite":               {"base_fps": 350, "gpu_weight": 0.75, "category": "Competitive / Esports", "supports_perf_mode": True},
+    "Valorant":               {"base_fps": 520, "gpu_weight": 0.55, "category": "Competitive / Esports"},
+    "CS2":                    {"base_fps": 480, "gpu_weight": 0.60, "category": "Competitive / Esports"},
+    "Apex Legends":           {"base_fps": 370, "gpu_weight": 0.70, "category": "Competitive / Esports"},
+    "Overwatch 2":            {"base_fps": 430, "gpu_weight": 0.62, "category": "Competitive / Esports"},
+    "Rainbow Six Siege":      {"base_fps": 600, "gpu_weight": 0.62, "category": "Competitive / Esports"},
+    "Rocket League":          {"base_fps": 700, "gpu_weight": 0.52, "category": "Competitive / Esports"},
+    "League of Legends":      {"base_fps": 620, "gpu_weight": 0.50, "category": "Competitive / Esports"},
+    "Dota 2":                 {"base_fps": 480, "gpu_weight": 0.58, "category": "Competitive / Esports"},
+    "The Finals":             {"base_fps": 280, "gpu_weight": 0.78, "category": "Competitive / Esports"},
+    "Call of Duty: Warzone":  {"base_fps": 240, "gpu_weight": 0.82, "category": "Competitive / Esports"},
+    "PUBG":                   {"base_fps": 220, "gpu_weight": 0.78, "category": "Competitive / Esports"},
+    "Halo Infinite":          {"base_fps": 260, "gpu_weight": 0.76, "category": "Competitive / Esports"},
+    "Destiny 2":              {"base_fps": 290, "gpu_weight": 0.74, "category": "Competitive / Esports"},
+    "Escape from Tarkov":     {"base_fps": 190, "gpu_weight": 0.72, "category": "Competitive / Esports"},
+    "Ready or Not":           {"base_fps": 200, "gpu_weight": 0.76, "category": "Competitive / Esports"},
+    "Battlefield 2042":       {"base_fps": 230, "gpu_weight": 0.82, "category": "Competitive / Esports"},
+
+    # ── Open World / AAA ──
+    "Cyberpunk 2077":         {"base_fps": 200, "gpu_weight": 0.92, "category": "Open World / AAA", "res_4k_mult": 0.44},
+    "Red Dead Redemption 2":  {"base_fps": 185, "gpu_weight": 0.87, "category": "Open World / AAA", "res_4k_mult": 0.45},
+    "Starfield":              {"base_fps": 170, "gpu_weight": 0.88, "category": "Open World / AAA", "res_4k_mult": 0.42},
+    "Hogwarts Legacy":        {"base_fps": 195, "gpu_weight": 0.86, "category": "Open World / AAA"},
+    "Assassin's Creed Mirage":{"base_fps": 230, "gpu_weight": 0.82, "category": "Open World / AAA"},
+    "Assassin's Creed Valhalla":{"base_fps": 200, "gpu_weight": 0.84, "category": "Open World / AAA"},
+    "The Witcher 3":          {"base_fps": 250, "gpu_weight": 0.80, "category": "Open World / AAA"},
+    "Far Cry 6":              {"base_fps": 240, "gpu_weight": 0.80, "category": "Open World / AAA"},
+    "Watch Dogs Legion":      {"base_fps": 190, "gpu_weight": 0.86, "category": "Open World / AAA"},
+    "GTA V":                  {"base_fps": 290, "gpu_weight": 0.75, "category": "Open World / AAA"},
+    "Spider-Man Remastered":  {"base_fps": 250, "gpu_weight": 0.82, "category": "Open World / AAA"},
+    "Spider-Man: Miles Morales":{"base_fps": 230, "gpu_weight": 0.84, "category": "Open World / AAA"},
+    "God of War":             {"base_fps": 240, "gpu_weight": 0.82, "category": "Open World / AAA"},
+    "Horizon Zero Dawn":      {"base_fps": 230, "gpu_weight": 0.83, "category": "Open World / AAA"},
+    "Days Gone":              {"base_fps": 260, "gpu_weight": 0.78, "category": "Open World / AAA"},
+    "Dying Light 2":          {"base_fps": 210, "gpu_weight": 0.84, "category": "Open World / AAA"},
+
+    # ── Action RPG ──
+    "Elden Ring":             {"base_fps": 160, "gpu_weight": 0.80, "category": "Action RPG"},
+    "Baldur's Gate 3":        {"base_fps": 200, "gpu_weight": 0.78, "category": "Action RPG"},
+    "Diablo IV":              {"base_fps": 260, "gpu_weight": 0.76, "category": "Action RPG"},
+    "Monster Hunter World":   {"base_fps": 230, "gpu_weight": 0.80, "category": "Action RPG"},
+    "Monster Hunter Rise":    {"base_fps": 320, "gpu_weight": 0.70, "category": "Action RPG"},
+    "Dark Souls III":         {"base_fps": 280, "gpu_weight": 0.72, "category": "Action RPG"},
+    "Sekiro":                 {"base_fps": 270, "gpu_weight": 0.74, "category": "Action RPG"},
+    "Nioh 2":                 {"base_fps": 260, "gpu_weight": 0.76, "category": "Action RPG"},
+    "Remnant 2":              {"base_fps": 210, "gpu_weight": 0.82, "category": "Action RPG"},
+    "Path of Exile":          {"base_fps": 300, "gpu_weight": 0.65, "category": "Action RPG"},
+
+    # ── Racing ──
+    "Forza Horizon 5":        {"base_fps": 280, "gpu_weight": 0.82, "category": "Racing"},
+    "Forza Motorsport":       {"base_fps": 250, "gpu_weight": 0.85, "category": "Racing"},
+    "Need for Speed Unbound": {"base_fps": 240, "gpu_weight": 0.80, "category": "Racing"},
+    "Assetto Corsa":          {"base_fps": 400, "gpu_weight": 0.68, "category": "Racing"},
+    "F1 23":                  {"base_fps": 270, "gpu_weight": 0.80, "category": "Racing"},
+    "BeamNG.drive":           {"base_fps": 220, "gpu_weight": 0.65, "category": "Racing"},
+
+    # ── Sandbox / Creative ──
+    "Minecraft":              {"base_fps": 600, "gpu_weight": 0.45, "category": "Sandbox / Creative"},
+    "Roblox":                 {"base_fps": 700, "gpu_weight": 0.40, "category": "Sandbox / Creative"},
+    "Terraria":               {"base_fps": 900, "gpu_weight": 0.30, "category": "Sandbox / Creative"},
+    "Cities: Skylines":       {"base_fps": 180, "gpu_weight": 0.55, "category": "Sandbox / Creative"},
+    "Satisfactory":           {"base_fps": 200, "gpu_weight": 0.70, "category": "Sandbox / Creative"},
+    "Factorio":               {"base_fps": 800, "gpu_weight": 0.25, "category": "Sandbox / Creative"},
+    "Kerbal Space Program":   {"base_fps": 300, "gpu_weight": 0.45, "category": "Sandbox / Creative"},
+
+    # ── Strategy ──
+    "Civilization VI":        {"base_fps": 350, "gpu_weight": 0.55, "category": "Strategy"},
+    "Age of Empires IV":      {"base_fps": 280, "gpu_weight": 0.60, "category": "Strategy"},
+    "Total War: Warhammer III":{"base_fps": 180, "gpu_weight": 0.80, "category": "Strategy"},
+    "Stellaris":              {"base_fps": 400, "gpu_weight": 0.40, "category": "Strategy"},
+    "Company of Heroes 3":    {"base_fps": 230, "gpu_weight": 0.72, "category": "Strategy"},
+
+    # ── Simulation ──
+    "Microsoft Flight Simulator":{"base_fps": 140, "gpu_weight": 0.88, "category": "Simulation", "res_4k_mult": 0.40},
+    "Euro Truck Simulator 2": {"base_fps": 350, "gpu_weight": 0.60, "category": "Simulation"},
+    "American Truck Simulator":{"base_fps": 340, "gpu_weight": 0.60, "category": "Simulation"},
+    "Planet Zoo":             {"base_fps": 200, "gpu_weight": 0.68, "category": "Simulation"},
+    "Planet Coaster":         {"base_fps": 210, "gpu_weight": 0.65, "category": "Simulation"},
+
+    # ── Horror / Survival ──
+    "Dead by Daylight":       {"base_fps": 300, "gpu_weight": 0.70, "category": "Horror / Survival"},
+    "Resident Evil Village":  {"base_fps": 280, "gpu_weight": 0.80, "category": "Horror / Survival"},
+    "Phasmophobia":           {"base_fps": 320, "gpu_weight": 0.65, "category": "Horror / Survival"},
+    "The Forest":             {"base_fps": 280, "gpu_weight": 0.68, "category": "Horror / Survival"},
+    "Left 4 Dead 2":          {"base_fps": 700, "gpu_weight": 0.50, "category": "Horror / Survival"},
+
+    # ── MMO ──
+    "World of Warcraft":      {"base_fps": 350, "gpu_weight": 0.60, "category": "MMO"},
+    "Final Fantasy XIV":      {"base_fps": 300, "gpu_weight": 0.72, "category": "MMO"},
+    "New World":              {"base_fps": 200, "gpu_weight": 0.80, "category": "MMO"},
+    "Lost Ark":               {"base_fps": 250, "gpu_weight": 0.68, "category": "MMO"},
+    "Guild Wars 2":           {"base_fps": 280, "gpu_weight": 0.58, "category": "MMO"},
+
+    # ── Multiplayer / Co-op ──
+    "Sea of Thieves":         {"base_fps": 280, "gpu_weight": 0.74, "category": "Multiplayer / Co-op"},
+    "Palworld":               {"base_fps": 210, "gpu_weight": 0.78, "category": "Multiplayer / Co-op"},
+    "Lethal Company":         {"base_fps": 350, "gpu_weight": 0.55, "category": "Multiplayer / Co-op"},
+    "Helldivers 2":           {"base_fps": 220, "gpu_weight": 0.82, "category": "Multiplayer / Co-op"},
+    "Deep Rock Galactic":     {"base_fps": 320, "gpu_weight": 0.65, "category": "Multiplayer / Co-op"},
 }
 
 RAM_MULTIPLIERS = {"8GB": 0.82, "16GB": 1.0, "32GB": 1.04, "64GB": 1.05}
@@ -342,17 +438,30 @@ async def root():
 
 @api_router.get("/hardware")
 async def get_hardware():
-    # Sort by score descending (best hardware first in dropdowns)
     intel = sorted([k for k, v in CPUS.items() if v["brand"] == "Intel"], key=lambda k: -CPUS[k]["score"])
     amd_cpu = sorted([k for k, v in CPUS.items() if v["brand"] == "AMD"], key=lambda k: -CPUS[k]["score"])
     nvidia = sorted([k for k, v in GPUS.items() if v["brand"] == "NVIDIA"], key=lambda k: -GPUS[k]["score"])
     amd_gpu = sorted([k for k, v in GPUS.items() if v["brand"] == "AMD"], key=lambda k: -GPUS[k]["score"])
+
+    # Group games by category, preserving category order
+    games_by_category = {}
+    for name, data in GAMES.items():
+        cat = data.get("category", "Other")
+        if cat not in games_by_category:
+            games_by_category[cat] = []
+        games_by_category[cat].append(name)
+    # Sort games alphabetically within each category
+    for cat in games_by_category:
+        games_by_category[cat].sort()
+
     return {
         "cpus": {"Intel": intel, "AMD": amd_cpu},
         "gpus": {"NVIDIA": nvidia, "AMD": amd_gpu},
         "rams": list(RAM_MULTIPLIERS.keys()),
         "resolutions": list(RESOLUTION_MULTIPLIERS.keys()),
         "games": list(GAMES.keys()),
+        "games_by_category": games_by_category,
+        "game_categories": GAME_CATEGORIES,
     }
 
 

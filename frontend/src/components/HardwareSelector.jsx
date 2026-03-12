@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Monitor, MemoryStick, Gamepad2, Zap } from 'lucide-react';
+import { Cpu, Monitor, MemoryStick, Zap } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import GameSelector from './GameSelector';
 
 const SelectField = ({ icon: Icon, label, value, onChange, testId, children }) => (
   <div className="flex flex-col gap-2">
@@ -98,11 +99,7 @@ export default function HardwareSelector({ hardware, form, setForm, onCalculate,
         </SelectField>
 
         {/* Game */}
-        <SelectField icon={Gamepad2} label="Game Title" value={form.game} onChange={update('game')} testId="game-select">
-          {(hardware?.games || []).map(g => (
-            <SelectItem key={g} value={g} className="text-sm focus:bg-gaming-border focus:text-white">{g}</SelectItem>
-          ))}
-        </SelectField>
+        <GameSelector hardware={hardware} value={form.game} onChange={update('game')} />
 
         {/* Calculate Button - fills the 6th slot */}
         <div className="flex flex-col gap-2">
