@@ -32,7 +32,7 @@
   "seed_data_creation": "None",
   "retest_needed": false,
   "should_main_agent_self_test": false,
-  "context_for_next_testing_agent": "All backend APIs functional. Frontend: hero title, FPS cards (4 qualities), bottleneck panel, upgrade recommendations, best GPU/CPU cards, product cards with tab filters, Amazon links all working. Mobile responsive at 375px. Backend URL: https://fps-calculator-6.preview.emergentagent.com",
+  "context_for_next_testing_agent": "All backend APIs functional. Frontend: hero title, FPS cards (4 qualities), bottleneck panel, upgrade recommendations, best GPU/CPU cards, product cards with tab filters, Amazon links all working. Mobile responsive at 375px. Backend URL: https://fps-calculator-7.preview.emergentagent.com",
   "features_verified": {
     "homepage_dark_gaming_theme": "PASS - #0b0d12 background, neon cyan accents, Russo One font title visible",
     "cpu_dropdown_intel_amd": "PASS - Intel and AMD groups present with 10+ options each",
