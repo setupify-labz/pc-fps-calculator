@@ -62,6 +62,7 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - [x] Chart: quality-colored bars, unique labels, full game names in tooltips, clean aligned tooltip design
 - [x] Improved spacing (24-40px sections), equal-height cards, smooth CSS transitions
 - [x] Mobile responsive with no horizontal scrolling
+- [x] Share Result card — canvas-rendered image with Download, Copy Image, Reddit, Discord share buttons
 - [x] 100% backend (34/34), 100% frontend test pass rate
 
 ## Backlog / Next Tasks

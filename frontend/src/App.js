@@ -10,10 +10,11 @@ import RecommendedUpgrades from './components/RecommendedUpgrades';
 import ProductCards from './components/ProductCards';
 import HistoryChart from './components/HistoryChart';
 import RequestGameModal from './components/RequestGameModal';
+import ShareResultCard from './components/ShareResultCard';
 import AdminPage from './components/AdminPage';
 import ComparePage from './components/ComparePage';
 import { formatCPU, formatGPU } from './lib/constants';
-import { Zap, Gauge, Copy, Link, Gamepad2, ArrowLeftRight } from 'lucide-react';
+import { Zap, Gauge, Copy, Link, Gamepad2, ArrowLeftRight, Share2 } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -32,6 +33,7 @@ function FPSCalculator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
+  const [showShareCard, setShowShareCard] = useState(false);
   const resultsRef = useRef(null);
   const hasUrlParams = searchParams.get('cpu') && searchParams.get('gpu');
 
@@ -170,14 +172,24 @@ function FPSCalculator() {
                   Results for {formatCPU(results.build_summary.cpu)} + {formatGPU(results.build_summary.gpu)}
                 </span>
               </div>
-              <button
-                onClick={copyShareLink}
-                data-testid="copy-link-results-btn"
-                className="flex items-center gap-2 text-xs font-mono text-neon-cyan hover:text-white transition-colors bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan/30 px-3 py-1.5 rounded-lg"
-              >
-                <Copy className="w-3 h-3" />
-                Copy Share Link
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowShareCard(true)}
+                  data-testid="share-result-btn"
+                  className="flex items-center gap-2 text-xs font-mono font-bold text-gaming-bg bg-neon-cyan hover:bg-neon-cyan/85 transition-colors px-3 py-1.5 rounded-lg uppercase tracking-wider"
+                >
+                  <Share2 className="w-3 h-3" />
+                  Share Result
+                </button>
+                <button
+                  onClick={copyShareLink}
+                  data-testid="copy-link-results-btn"
+                  className="flex items-center gap-2 text-xs font-mono text-neon-cyan hover:text-white transition-colors bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan/30 px-3 py-1.5 rounded-lg"
+                >
+                  <Copy className="w-3 h-3" />
+                  Copy Link
+                </button>
+              </div>
             </div>
 
             <FPSResults results={results} />
@@ -209,6 +221,7 @@ function FPSCalculator() {
       </footer>
 
       <RequestGameModal open={showRequestModal} onClose={() => setShowRequestModal(false)} />
+      <ShareResultCard results={results} open={showShareCard} onClose={() => setShowShareCard(false)} />
     </div>
   );
 }
