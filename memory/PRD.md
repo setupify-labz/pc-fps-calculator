@@ -57,6 +57,11 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - [x] Searchable CPU/GPU dropdowns with brand grouping (Intel/AMD, NVIDIA/AMD)
 - [x] FPS History chart (recharts bar graph with Low/Medium/High/Ultra quality toggle)
 - [x] Comparison mode at /compare — two builds side by side with Head-to-Head diff table
+- [x] UI cleanup: consistent quality colors (Low=green, Medium=blue, High=purple, Ultra=orange)
+- [x] Hardware name formatting with proper brand prefixes (Ryzen/Core/RTX/GTX/RX)
+- [x] Chart: quality-colored bars, unique labels, full game names in tooltips, clean aligned tooltip design
+- [x] Improved spacing (24-40px sections), equal-height cards, smooth CSS transitions
+- [x] Mobile responsive with no horizontal scrolling
 - [x] 100% backend (34/34), 100% frontend test pass rate
 
 ## Backlog / Next Tasks
