@@ -1,34 +1,73 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Gaming UI Custom Styles */
+
+/* Neon button base */
+.btn-neon {
+  background: #00e5ff;
+  color: #0b0d12;
+  font-family: 'Russo One', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.75rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.btn-neon:hover:not(:disabled) {
+  background: #00c8e0;
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.5), 0 0 60px rgba(0, 229, 255, 0.2);
+  transform: translateY(-1px);
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.btn-neon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.App-link {
-    color: #61dafb;
+/* Select trigger dark override */
+.select-gaming [data-radix-select-trigger] {
+  background-color: #212631;
+  border: 1px solid #2d3342;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Score tier colors */
+.tier-budget    { color: #94a3b8; }
+.tier-midrange  { color: #60a5fa; }
+.tier-highend   { color: #a78bfa; }
+.tier-flagship  { color: #f59e0b; }
+
+/* FPS grade colors */
+.fps-excellent  { color: #22c55e; }
+.fps-great      { color: #00e5ff; }
+.fps-good       { color: #eab308; }
+.fps-fair       { color: #f97316; }
+.fps-poor       { color: #ef4444; }
+
+/* Scanline effect on hero */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 229, 255, 0.25) !important;
 }
