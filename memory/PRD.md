@@ -54,6 +54,10 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - [x] Framer-motion ready (installed)
 - [x] 81 games across 10 categories with searchable, category-grouped dropdown
 - [x] "Request a Game" modal — private submissions stored in MongoDB, no personal data collected, admin-only visibility via GET /api/game-requests
+- [x] Searchable CPU/GPU dropdowns with brand grouping (Intel/AMD, NVIDIA/AMD)
+- [x] FPS History chart (recharts bar graph with Low/Medium/High/Ultra quality toggle)
+- [x] Comparison mode at /compare — two builds side by side with Head-to-Head diff table
+- [x] 100% backend (34/34), 100% frontend test pass rate
 
 ## Backlog / Next Tasks
 
@@ -61,15 +65,11 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - None — core features complete
 
 ### P1 (High Value)
-- Add comparison mode (compare 2 builds side by side)
-- Add FPS history chart (show past calculations)
-- Add more games (Baldur's Gate 3, Starfield, The Witcher 3)
-- Add search/filter in CPU/GPU dropdowns
+- Add more games on request basis
+- Add DLSS/FSR impact toggle in calculation
 
 ### P2 (Nice to Have)
-- User can save/share their build configuration via URL
-- Add GPU/CPU benchmarks chart (visual bar comparison)
-- Add "Build Cost Estimator" using Amazon pricing
-- Add 1440p ultrawide resolution option
-- Add DLSS/FSR impact toggle in calculation
+- GPU/CPU benchmarks visual bar comparison
+- "Build Cost Estimator" using Amazon pricing
+- 1440p ultrawide resolution option
 - Dark/light theme toggle
