@@ -35,9 +35,9 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - Bottleneck threshold: 15 score point difference
 
 ## Hardware Database
-- **CPUs**: 33 total (Intel 9th–14th Gen + AMD Ryzen 3000/5000/7000)
+- **CPUs**: 43 total (Intel 8th–14th Gen + AMD Ryzen 2000/3000/5000/7000)
 - **GPUs**: 55 total (NVIDIA GTX 16xx, RTX 2000–5000 + AMD RX 5000–9000)
-- **Games**: 16 titles (Fortnite, Valorant, CS2, Cyberpunk 2077, etc.)
+- **Games**: 81 titles across 10 categories (Competitive/Esports, Open World/AAA, Action RPG, Racing, Sandbox/Creative, Strategy, Simulation, Horror/Survival, MMO, Multiplayer/Co-op)
 
 ## What's Been Implemented (Feb 2026)
 - [x] Complete dark gaming UI with neon cyan accents
@@ -52,7 +52,8 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - [x] MongoDB calculation history storage
 - [x] Mobile responsive design
 - [x] Framer-motion ready (installed)
-- [x] 100% backend test pass rate, 95% frontend
+- [x] 81 games across 10 categories with searchable, category-grouped dropdown
+- [x] 100% backend test pass rate, 100% frontend
 
 ## Backlog / Next Tasks
 
