@@ -558,6 +558,31 @@ async def get_game_requests():
     requests = await cursor.to_list(length=20)
     return {"requests": requests}
 
+
+@api_router.post("/admin/login")
+async def admin_login(body: dict):
+    if body.get("password") == os.environ.get("ADMIN_PASSWORD"):
+        return {"ok": True}
+    return {"ok": False, "error": "Wrong password"}
+
+
+@api_router.get("/admin/game-requests")
+async def admin_game_requests(password: str = ""):
+    if password != os.environ.get("ADMIN_PASSWORD"):
+        return {"error": "Unauthorized"}
+    cursor = db.game_requests.find({}, {"_id": 0}).sort("count", -1)
+    requests = await cursor.to_list(length=500)
+    total = sum(r["count"] for r in requests)
+    return {"requests": requests, "total_requests": total, "unique_games": len(requests)}
+
+
+@api_router.delete("/admin/game-requests/{game_name}")
+async def admin_delete_request(game_name: str, password: str = ""):
+    if password != os.environ.get("ADMIN_PASSWORD"):
+        return {"error": "Unauthorized"}
+    await db.game_requests.delete_one({"name": game_name})
+    return {"ok": True}
+
 app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware, allow_credentials=True,

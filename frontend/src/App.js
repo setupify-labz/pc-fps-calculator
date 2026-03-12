@@ -9,6 +9,7 @@ import BottleneckPanel from './components/BottleneckPanel';
 import RecommendedUpgrades from './components/RecommendedUpgrades';
 import ProductCards from './components/ProductCards';
 import RequestGameModal from './components/RequestGameModal';
+import AdminPage from './components/AdminPage';
 import { Zap, Gauge, Copy, Link, Gamepad2 } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -202,6 +203,7 @@ export default function App() {
       <Toaster position="bottom-right" theme="dark" richColors />
       <Routes>
         <Route path="/" element={<FPSCalculator />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </BrowserRouter>
   );
