@@ -12,6 +12,7 @@ import HistoryChart from './components/HistoryChart';
 import RequestGameModal from './components/RequestGameModal';
 import AdminPage from './components/AdminPage';
 import ComparePage from './components/ComparePage';
+import { formatCPU, formatGPU } from './lib/constants';
 import { Zap, Gauge, Copy, Link, Gamepad2, ArrowLeftRight } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -160,13 +161,13 @@ function FPSCalculator() {
         )}
 
         {results && (
-          <div ref={resultsRef} className="mt-10 space-y-8" data-testid="results-section">
+          <div ref={resultsRef} className="mt-12 space-y-10" data-testid="results-section">
             {/* Share banner */}
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-2">
                 <div className="h-5 w-1 rounded-full bg-neon-cyan neon-glow" />
                 <span className="font-russo text-sm uppercase tracking-wide text-muted-foreground">
-                  Results for {results.build_summary.cpu.split(' ').slice(-2).join(' ')} + {results.build_summary.gpu.split(' ').slice(-1)[0]}
+                  Results for {formatCPU(results.build_summary.cpu)} + {formatGPU(results.build_summary.gpu)}
                 </span>
               </div>
               <button
@@ -186,8 +187,8 @@ function FPSCalculator() {
           </div>
         )}
 
-        {/* History Chart - always visible if there's calculation history */}
-        <div className="mt-10">
+        {/* History Chart */}
+        <div className="mt-12">
           <HistoryChart />
         </div>
       </main>

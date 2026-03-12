@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import { Clock, Monitor, Cpu } from 'lucide-react';
+import { QUALITY_COLORS, formatCPU, formatGPU, truncateLabel } from '../lib/constants';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-const QUALITY_COLORS = {
-  Low: '#94a3b8',
-  Medium: '#60a5fa',
-  High: '#a78bfa',
-  Ultra: '#f59e0b',
-  Performance: '#00e5ff',
-};
-
-function CustomTooltip({ active, payload, label }) {
+function CustomTooltip({ active, payload }) {
   if (!active || !payload?.length) return null;
   const d = payload[0]?.payload;
   if (!d) return null;
   return (
-    <div className="bg-gaming-secondary border border-gaming-border rounded-lg p-3 text-xs font-mono shadow-xl">
-      <p className="text-white font-bold mb-1">{d.game}</p>
-      <p className="text-muted-foreground">{d.cpu_short} + {d.gpu_short}</p>
-      <p className="text-muted-foreground">{d.resolution} · {d.ram}</p>
-      <div className="mt-1.5 pt-1.5 border-t border-gaming-border/40 space-y-0.5">
-        {Object.entries(d.fps || {}).map(([q, v]) => (
-          <div key={q} className="flex justify-between gap-4">
-            <span style={{ color: QUALITY_COLORS[q] || '#fff' }}>{q}</span>
-            <span className="text-white font-bold">{v} FPS</span>
+    <div className="bg-gaming-secondary border border-gaming-border rounded-xl p-4 font-mono shadow-2xl min-w-[220px]">
+      <p className="text-white font-bold text-sm mb-2">{d.game}</p>
+      <div className="flex flex-col gap-0.5 text-xs text-muted-foreground mb-3">
+        <span>{d.cpuFull} + {d.gpuFull}</span>
+        <span>{d.resolution} · {d.ram}</span>
+      </div>
+      <div className="border-t border-gaming-border/40 pt-2 space-y-1">
+        {['Performance', 'Low', 'Medium', 'High', 'Ultra']
+          .filter(q => q in (d.fps || {}))
+          .map(q => (
+          <div key={q} className="flex items-center justify-between gap-6">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: QUALITY_COLORS[q] }} />
+              <span className="text-xs" style={{ color: QUALITY_COLORS[q] }}>{q}</span>
+            </div>
+            <span className="text-white font-bold text-xs tabular-nums">{d.fps[q]} FPS</span>
           </div>
         ))}
       </div>
@@ -49,20 +48,32 @@ export default function HistoryChart() {
   if (loading) return null;
   if (history.length === 0) return null;
 
-  const chartData = history.map((h, i) => ({
-    idx: i,
-    game: h.game,
-    cpu: h.cpu,
-    gpu: h.gpu,
-    ram: h.ram,
-    resolution: h.resolution,
-    fps: h.fps,
-    cpu_short: h.cpu?.split(' ').slice(-2).join(' '),
-    gpu_short: h.gpu?.split(' ').slice(-2).join(' '),
-    value: h.fps?.[quality] || h.fps?.Medium || 0,
-    label: `${h.game?.substring(0, 12)}`,
-  })).reverse();
+  // Build unique labels: use game name + short GPU when duplicates exist
+  const gameCounts = {};
+  history.forEach(h => { gameCounts[h.game] = (gameCounts[h.game] || 0) + 1; });
 
+  const chartData = history.map((h, i) => {
+    const isDuplicate = gameCounts[h.game] > 1;
+    const label = isDuplicate
+      ? truncateLabel(`${h.game} (${formatGPU(h.gpu).split(' ').slice(0, 2).join(' ')})`, 22)
+      : truncateLabel(h.game, 18);
+
+    return {
+      idx: i,
+      game: h.game,
+      cpu: h.cpu,
+      gpu: h.gpu,
+      ram: h.ram,
+      resolution: h.resolution,
+      fps: h.fps,
+      cpuFull: formatCPU(h.cpu),
+      gpuFull: formatGPU(h.gpu),
+      value: h.fps?.[quality] || h.fps?.Medium || 0,
+      label,
+    };
+  }).reverse();
+
+  const activeColor = QUALITY_COLORS[quality];
   const availableQualities = ['Low', 'Medium', 'High', 'Ultra'];
 
   return (
@@ -79,9 +90,9 @@ export default function HistoryChart() {
               key={q}
               onClick={() => setQuality(q)}
               data-testid={`history-quality-${q.toLowerCase()}`}
-              className={`px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider transition-all ${
+              className={`px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
                 quality === q
-                  ? 'font-bold text-gaming-bg'
+                  ? 'font-bold'
                   : 'text-muted-foreground hover:text-white border border-gaming-border hover:border-neon-cyan/30'
               }`}
               style={quality === q ? { background: QUALITY_COLORS[q], color: '#0b0d12' } : {}}
@@ -92,49 +103,34 @@ export default function HistoryChart() {
         </div>
       </div>
 
-      <div className="card-gaming p-4 sm:p-6">
-        <ResponsiveContainer width="100%" height={260}>
-          <BarChart data={chartData} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
+      <div className="card-gaming p-5 sm:p-8">
+        <ResponsiveContainer width="100%" height={280}>
+          <BarChart data={chartData} margin={{ top: 8, right: 8, left: -10, bottom: 5 }}>
             <XAxis
               dataKey="label"
-              tick={{ fill: '#6b7a90', fontSize: 11, fontFamily: 'JetBrains Mono' }}
+              tick={{ fill: '#6b7a90', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
               axisLine={{ stroke: '#2d3342' }}
               tickLine={false}
               interval={0}
-              angle={-25}
+              angle={-30}
               textAnchor="end"
-              height={60}
+              height={70}
             />
             <YAxis
-              tick={{ fill: '#6b7a90', fontSize: 11, fontFamily: 'JetBrains Mono' }}
+              tick={{ fill: '#6b7a90', fontSize: 11, fontFamily: 'JetBrains Mono, monospace' }}
               axisLine={false}
               tickLine={false}
-              label={{ value: 'FPS', angle: -90, position: 'insideLeft', fill: '#6b7a90', fontSize: 11 }}
+              width={45}
+              label={{ value: 'FPS', angle: -90, position: 'insideLeft', fill: '#6b7a90', fontSize: 11, dx: -5 }}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,229,255,0.05)' }} />
-            <Bar dataKey="value" radius={[4, 4, 0, 0]} maxBarSize={40}>
-              {chartData.map((entry, index) => {
-                const fps = entry.value;
-                const color = fps >= 144 ? '#00e5ff' : fps >= 60 ? '#22c55e' : fps >= 30 ? '#eab308' : '#ef4444';
-                return <Cell key={index} fill={color} fillOpacity={0.8} />;
-              })}
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
+            <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={44} animationDuration={600}>
+              {chartData.map((_, index) => (
+                <Cell key={index} fill={activeColor} fillOpacity={0.85} />
+              ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-
-        <div className="flex flex-wrap justify-center gap-4 mt-3 text-xs font-mono text-muted-foreground border-t border-gaming-border/30 pt-3">
-          {[
-            { color: '#00e5ff', label: '144+ Elite' },
-            { color: '#22c55e', label: '60+ Smooth' },
-            { color: '#eab308', label: '30+ Playable' },
-            { color: '#ef4444', label: '<30 Low' },
-          ].map(({ color, label }) => (
-            <div key={label} className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-sm" style={{ background: color }} />
-              {label}
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

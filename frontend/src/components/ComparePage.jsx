@@ -5,24 +5,12 @@ import { Toaster } from 'sonner';
 import { Gauge, ArrowLeft, Zap, Cpu, Monitor, MemoryStick, ArrowLeftRight } from 'lucide-react';
 import SearchableHardwareSelect from './SearchableHardwareSelect';
 import GameSelector from './GameSelector';
+import { QUALITY_COLORS, getFPSColor } from '../lib/constants';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
-const QUALITY_COLORS = {
-  Performance: '#00e5ff', Low: '#94a3b8', Medium: '#60a5fa', High: '#a78bfa', Ultra: '#f59e0b',
-};
-
-function getFPSColor(fps) {
-  if (fps >= 240) return '#00e5ff';
-  if (fps >= 144) return '#22c55e';
-  if (fps >= 100) return '#60a5fa';
-  if (fps >= 60)  return '#eab308';
-  if (fps >= 30)  return '#f97316';
-  return '#ef4444';
-}
 
 function BuildForm({ id, hardware, form, setForm, onCalculate, loading, results }) {
   const update = (key) => (val) => setForm(f => ({ ...f, [key]: val }));
