@@ -344,3 +344,63 @@ class TestProductCards:
             # URL must be Amazon search link
             assert "amazon.com" in card["url"]
             assert "tag=fpscalc-20" in card["url"]
+
+
+# ========== NEW TESTS: History API ==========
+
+class TestHistoryAPI:
+    """Test /api/history endpoint for FPS History chart feature"""
+
+    def test_history_returns_200(self):
+        """Verify /api/history endpoint returns 200"""
+        r = requests.get(f"{BASE_URL}/api/history")
+        assert r.status_code == 200
+
+    def test_history_returns_history_array(self):
+        """Verify response contains history array"""
+        r = requests.get(f"{BASE_URL}/api/history")
+        data = r.json()
+        assert "history" in data
+        assert isinstance(data["history"], list)
+
+    def test_history_limit_parameter(self):
+        """Verify limit parameter works"""
+        r = requests.get(f"{BASE_URL}/api/history?limit=5")
+        data = r.json()
+        assert "history" in data
+        assert len(data["history"]) <= 5
+
+    def test_history_entry_structure(self):
+        """Verify each history entry has required fields"""
+        r = requests.get(f"{BASE_URL}/api/history?limit=5")
+        data = r.json()
+        if len(data["history"]) > 0:
+            entry = data["history"][0]
+            # Required fields for HistoryChart component
+            assert "cpu" in entry
+            assert "gpu" in entry
+            assert "ram" in entry
+            assert "resolution" in entry
+            assert "game" in entry
+            assert "fps" in entry
+            assert "build_score" in entry
+            assert "timestamp" in entry
+            # fps should have quality levels
+            assert "Medium" in entry["fps"] or "Low" in entry["fps"]
+
+    def test_history_sorted_by_timestamp_desc(self):
+        """Verify history is sorted by timestamp descending (newest first)"""
+        r = requests.get(f"{BASE_URL}/api/history?limit=10")
+        data = r.json()
+        if len(data["history"]) >= 2:
+            # First entry should have more recent timestamp than second
+            first_ts = data["history"][0]["timestamp"]
+            second_ts = data["history"][1]["timestamp"]
+            assert first_ts >= second_ts, "History should be sorted by timestamp descending"
+
+    def test_history_no_mongodb_id(self):
+        """Verify _id field from MongoDB is excluded"""
+        r = requests.get(f"{BASE_URL}/api/history?limit=5")
+        data = r.json()
+        for entry in data["history"]:
+            assert "_id" not in entry, "MongoDB _id should be excluded"

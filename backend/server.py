@@ -559,6 +559,14 @@ async def get_game_requests():
     return {"requests": requests}
 
 
+@api_router.get("/history")
+async def get_history(limit: int = 15):
+    limit = min(limit, 50)
+    cursor = db.calculations.find({}, {"_id": 0}).sort("timestamp", -1).limit(limit)
+    docs = await cursor.to_list(length=limit)
+    return {"history": docs}
+
+
 @api_router.post("/admin/login")
 async def admin_login(body: dict):
     if body.get("password") == os.environ.get("ADMIN_PASSWORD"):

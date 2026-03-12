@@ -8,9 +8,11 @@ import FPSResults from './components/FPSResults';
 import BottleneckPanel from './components/BottleneckPanel';
 import RecommendedUpgrades from './components/RecommendedUpgrades';
 import ProductCards from './components/ProductCards';
+import HistoryChart from './components/HistoryChart';
 import RequestGameModal from './components/RequestGameModal';
 import AdminPage from './components/AdminPage';
-import { Zap, Gauge, Copy, Link, Gamepad2 } from 'lucide-react';
+import ComparePage from './components/ComparePage';
+import { Zap, Gauge, Copy, Link, Gamepad2, ArrowLeftRight } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -99,6 +101,14 @@ function FPSCalculator() {
             <span className="font-russo text-sm tracking-widest text-neon-cyan uppercase">FPS Calculator</span>
           </div>
           <div className="flex items-center gap-4">
+            <a
+              href="/compare"
+              data-testid="compare-link"
+              className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-neon-cyan transition-colors border border-gaming-border hover:border-neon-cyan/30 px-3 py-1.5 rounded-lg"
+            >
+              <ArrowLeftRight className="w-3 h-3" />
+              Compare Builds
+            </a>
             <button
               onClick={() => setShowRequestModal(true)}
               data-testid="request-game-btn"
@@ -175,6 +185,11 @@ function FPSCalculator() {
             <ProductCards cards={results.product_cards} />
           </div>
         )}
+
+        {/* History Chart - always visible if there's calculation history */}
+        <div className="mt-10">
+          <HistoryChart />
+        </div>
       </main>
 
       <footer className="relative z-10 border-t border-gaming-border/30 py-8 text-center space-y-4">
@@ -203,6 +218,7 @@ export default function App() {
       <Toaster position="bottom-right" theme="dark" richColors />
       <Routes>
         <Route path="/" element={<FPSCalculator />} />
+        <Route path="/compare" element={<ComparePage />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </BrowserRouter>

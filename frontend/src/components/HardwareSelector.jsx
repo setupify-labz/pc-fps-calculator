@@ -1,111 +1,80 @@
 import React from 'react';
-import { Cpu, Monitor, MemoryStick, Zap } from 'lucide-react';
+import { MemoryStick, Monitor, Cpu, Zap } from 'lucide-react';
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
+import SearchableHardwareSelect from './SearchableHardwareSelect';
 import GameSelector from './GameSelector';
-
-const SelectField = ({ icon: Icon, label, value, onChange, testId, children }) => (
-  <div className="flex flex-col gap-2">
-    <label className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-      <Icon className="w-3.5 h-3.5 text-neon-cyan" />
-      {label}
-    </label>
-    <Select value={value} onValueChange={onChange}>
-      <SelectTrigger
-        data-testid={testId}
-        className="h-12 bg-gaming-secondary border-gaming-border text-white text-sm focus:ring-neon-cyan focus:ring-1 focus:border-neon-cyan/50 hover:border-neon-cyan/30 transition-colors"
-      >
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent className="bg-gaming-secondary border-gaming-border text-white max-h-64 z-50">
-        {children}
-      </SelectContent>
-    </Select>
-  </div>
-);
 
 export default function HardwareSelector({ hardware, form, setForm, onCalculate, loading }) {
   const update = (key) => (val) => setForm(f => ({ ...f, [key]: val }));
 
   const canCalculate = form.cpu && form.gpu && !loading;
 
-  const intelCPUs = hardware?.cpus?.Intel || [];
-  const amdCPUs = hardware?.cpus?.AMD || [];
-  const nvidiaGPUs = hardware?.gpus?.NVIDIA || [];
-  const amdGPUs = hardware?.gpus?.AMD || [];
-
   return (
     <div className="card-gaming p-6 sm:p-8 scanlines" data-testid="hardware-selector">
-      {/* Section Title */}
       <div className="flex items-center gap-3 mb-8">
         <div className="h-6 w-1 rounded-full bg-neon-cyan neon-glow" />
         <h2 className="font-russo text-xl sm:text-2xl uppercase tracking-wide">Configure Your Build</h2>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {/* CPU */}
-        <SelectField icon={Cpu} label="Processor (CPU)" value={form.cpu} onChange={update('cpu')} testId="cpu-select">
-          <SelectGroup>
-            <SelectLabel className="text-neon-cyan/70 text-xs uppercase tracking-widest font-mono">Intel</SelectLabel>
-            {intelCPUs.map(cpu => (
-              <SelectItem key={cpu} value={cpu} className="text-sm focus:bg-gaming-border focus:text-white">{cpu}</SelectItem>
-            ))}
-          </SelectGroup>
-          <SelectGroup>
-            <SelectLabel className="text-red-400/70 text-xs uppercase tracking-widest font-mono">AMD</SelectLabel>
-            {amdCPUs.map(cpu => (
-              <SelectItem key={cpu} value={cpu} className="text-sm focus:bg-gaming-border focus:text-white">{cpu}</SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectField>
+        {/* CPU - Searchable */}
+        <SearchableHardwareSelect
+          icon={Cpu} label="Processor (CPU)" value={form.cpu} onChange={update('cpu')}
+          groups={hardware ? hardware.cpus : {}} testId="cpu-select"
+        />
 
-        {/* GPU */}
-        <SelectField icon={Monitor} label="Graphics Card (GPU)" value={form.gpu} onChange={update('gpu')} testId="gpu-select">
-          <SelectGroup>
-            <SelectLabel className="text-green-400/70 text-xs uppercase tracking-widest font-mono">NVIDIA</SelectLabel>
-            {nvidiaGPUs.map(gpu => (
-              <SelectItem key={gpu} value={gpu} className="text-sm focus:bg-gaming-border focus:text-white">{gpu}</SelectItem>
-            ))}
-          </SelectGroup>
-          <SelectGroup>
-            <SelectLabel className="text-red-400/70 text-xs uppercase tracking-widest font-mono">AMD</SelectLabel>
-            {amdGPUs.map(gpu => (
-              <SelectItem key={gpu} value={gpu} className="text-sm focus:bg-gaming-border focus:text-white">{gpu}</SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectField>
+        {/* GPU - Searchable */}
+        <SearchableHardwareSelect
+          icon={Monitor} label="Graphics Card (GPU)" value={form.gpu} onChange={update('gpu')}
+          groups={hardware ? hardware.gpus : {}} testId="gpu-select"
+        />
 
         {/* RAM */}
-        <SelectField icon={MemoryStick} label="System RAM" value={form.ram} onChange={update('ram')} testId="ram-select">
-          {(hardware?.rams || ['8GB', '16GB', '32GB', '64GB']).map(r => (
-            <SelectItem key={r} value={r} className="text-sm focus:bg-gaming-border focus:text-white">{r} RAM</SelectItem>
-          ))}
-        </SelectField>
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+            <MemoryStick className="w-3.5 h-3.5 text-neon-cyan" />
+            System RAM
+          </label>
+          <Select value={form.ram} onValueChange={update('ram')}>
+            <SelectTrigger data-testid="ram-select" className="h-12 bg-gaming-secondary border-gaming-border text-white text-sm focus:ring-neon-cyan focus:ring-1 focus:border-neon-cyan/50 hover:border-neon-cyan/30 transition-colors">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-gaming-secondary border-gaming-border text-white max-h-64 z-50">
+              {(hardware?.rams || ['8GB', '16GB', '32GB', '64GB']).map(r => (
+                <SelectItem key={r} value={r} className="text-sm focus:bg-gaming-border focus:text-white">{r} RAM</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
         {/* Resolution */}
-        <SelectField icon={Monitor} label="Target Resolution" value={form.resolution} onChange={update('resolution')} testId="resolution-select">
-          {(hardware?.resolutions || ['1080p', '1440p', '4K']).map(r => (
-            <SelectItem key={r} value={r} className="text-sm focus:bg-gaming-border focus:text-white">
-              {r === '1080p' ? '1080p (Full HD)' : r === '1440p' ? '1440p (2K QHD)' : '4K (Ultra HD)'}
-            </SelectItem>
-          ))}
-        </SelectField>
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+            <Monitor className="w-3.5 h-3.5 text-neon-cyan" />
+            Target Resolution
+          </label>
+          <Select value={form.resolution} onValueChange={update('resolution')}>
+            <SelectTrigger data-testid="resolution-select" className="h-12 bg-gaming-secondary border-gaming-border text-white text-sm focus:ring-neon-cyan focus:ring-1 focus:border-neon-cyan/50 hover:border-neon-cyan/30 transition-colors">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-gaming-secondary border-gaming-border text-white max-h-64 z-50">
+              {(hardware?.resolutions || ['1080p', '1440p', '4K']).map(r => (
+                <SelectItem key={r} value={r} className="text-sm focus:bg-gaming-border focus:text-white">
+                  {r === '1080p' ? '1080p (Full HD)' : r === '1440p' ? '1440p (2K QHD)' : '4K (Ultra HD)'}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-        {/* Game */}
+        {/* Game - Searchable */}
         <GameSelector hardware={hardware} value={form.game} onChange={update('game')} />
 
-        {/* Calculate Button - fills the 6th slot */}
+        {/* Calculate Button */}
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-mono font-bold uppercase tracking-widest text-transparent select-none">
-            Action
-          </label>
+          <label className="text-xs font-mono font-bold uppercase tracking-widest text-transparent select-none">Action</label>
           <button
             data-testid="calculate-btn"
             onClick={onCalculate}
@@ -118,10 +87,7 @@ export default function HardwareSelector({ hardware, form, setForm, onCalculate,
                 Calculating...
               </>
             ) : (
-              <>
-                <Zap className="w-4 h-4" />
-                Estimate FPS
-              </>
+              <><Zap className="w-4 h-4" />Estimate FPS</>
             )}
           </button>
         </div>
