@@ -8,7 +8,8 @@ import FPSResults from './components/FPSResults';
 import BottleneckPanel from './components/BottleneckPanel';
 import RecommendedUpgrades from './components/RecommendedUpgrades';
 import ProductCards from './components/ProductCards';
-import { Zap, Gauge, Copy, Link } from 'lucide-react';
+import RequestGameModal from './components/RequestGameModal';
+import { Zap, Gauge, Copy, Link, Gamepad2 } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -26,6 +27,7 @@ function FPSCalculator() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showRequestModal, setShowRequestModal] = useState(false);
   const resultsRef = useRef(null);
   const hasUrlParams = searchParams.get('cpu') && searchParams.get('gpu');
 
@@ -96,6 +98,14 @@ function FPSCalculator() {
             <span className="font-russo text-sm tracking-widest text-neon-cyan uppercase">FPS Calculator</span>
           </div>
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowRequestModal(true)}
+              data-testid="request-game-btn"
+              className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-neon-cyan transition-colors border border-gaming-border hover:border-neon-cyan/30 px-3 py-1.5 rounded-lg"
+            >
+              <Gamepad2 className="w-3 h-3" />
+              Request a Game
+            </button>
             {results && (
               <button
                 onClick={copyShareLink}
@@ -166,12 +176,22 @@ function FPSCalculator() {
         )}
       </main>
 
-      <footer className="relative z-10 border-t border-gaming-border/30 py-8 text-center">
+      <footer className="relative z-10 border-t border-gaming-border/30 py-8 text-center space-y-4">
+        <button
+          onClick={() => setShowRequestModal(true)}
+          data-testid="request-game-footer-btn"
+          className="inline-flex items-center gap-2 text-xs font-mono text-neon-cyan hover:text-white transition-colors bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan/30 px-4 py-2 rounded-lg"
+        >
+          <Gamepad2 className="w-3.5 h-3.5" />
+          Don't see your game? Request it
+        </button>
         <p className="text-muted-foreground text-xs font-mono">
           FPS estimates are based on benchmark data. Actual performance may vary.
           Amazon links are affiliate placeholder links (tag: fpscalc-20).
         </p>
       </footer>
+
+      <RequestGameModal open={showRequestModal} onClose={() => setShowRequestModal(false)} />
     </div>
   );
 }

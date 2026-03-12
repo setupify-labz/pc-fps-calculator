@@ -428,6 +428,9 @@ class CalculationRequest(BaseModel):
     resolution: str
     game: str
 
+class GameRequestBody(BaseModel):
+    game_name: str
+
 
 # ===================== ROUTES =====================
 
@@ -532,6 +535,28 @@ async def calculate_fps(req: CalculationRequest):
         },
     }
 
+
+@api_router.post("/game-requests")
+async def submit_game_request(body: GameRequestBody):
+    name = body.game_name.strip()
+    if not name or len(name) > 100:
+        return {"error": "Game name must be 1-100 characters"}
+    # Normalize: title-case for consistent grouping
+    normalized = name.title()
+    await db.game_requests.update_one(
+        {"name": normalized},
+        {"$inc": {"count": 1}, "$set": {"name": normalized}},
+        upsert=True,
+    )
+    doc = await db.game_requests.find_one({"name": normalized}, {"_id": 0})
+    return {"name": doc["name"], "count": doc["count"]}
+
+
+@api_router.get("/game-requests")
+async def get_game_requests():
+    cursor = db.game_requests.find({}, {"_id": 0}).sort("count", -1).limit(20)
+    requests = await cursor.to_list(length=20)
+    return {"requests": requests}
 
 app.include_router(api_router)
 app.add_middleware(
