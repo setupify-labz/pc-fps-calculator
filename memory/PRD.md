@@ -47,7 +47,7 @@ fps = base_fps * (gpu_factor^gpu_weight * cpu_factor^cpu_weight) * res_mult * qu
 - [x] Bottleneck detection (CPU/GPU/Balanced) with severity percentage
 - [x] Recommended upgrades by priority (High/Medium)
 - [x] Best GPU for build + Best CPU upgrade matching cards
-- [x] Amazon affiliate product cards with All/GPU/CPU/RAM tab filters
+- [x] Amazon affiliate product cards with All/GPU/CPU/RAM tab filters — no hardcoded prices, "Check price on Amazon" button links to affiliate URL
 - [x] Build tier classification (Budget/Mid-Range/High-End/Enthusiast/Flagship)
 - [x] MongoDB calculation history storage
 - [x] Mobile responsive design

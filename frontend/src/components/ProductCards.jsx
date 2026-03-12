@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, ExternalLink, Cpu, Monitor, HardDrive } from 'lucide-react';
+import { ExternalLink, Cpu, Monitor, HardDrive } from 'lucide-react';
 
 const TIER_COLORS = {
   'Budget':    '#94a3b8',
@@ -49,21 +49,17 @@ function ProductCard({ card }) {
         {/* Description */}
         <p className="text-muted-foreground text-xs leading-relaxed flex-1">{card.description}</p>
 
-        {/* Price + Link */}
-        <div className="flex items-center justify-between pt-2 border-t border-gaming-border/40">
-          <span className="font-mono font-bold text-white">{card.price}</span>
-          <a
-            href={card.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs font-mono text-neon-cyan hover:text-white transition-colors group"
-            data-testid={`product-link-${card.name.replace(/\s+/g, '-').toLowerCase()}`}
-          >
-            <ShoppingCart className="w-3.5 h-3.5" />
-            <span>Buy on Amazon</span>
-            <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
-        </div>
+        {/* Check Price Button */}
+        <a
+          href={card.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid={`product-link-${card.name.replace(/\s+/g, '-').toLowerCase()}`}
+          className="mt-auto flex items-center justify-center gap-2 w-full text-xs font-mono font-bold uppercase tracking-wider text-gaming-bg bg-neon-cyan hover:bg-neon-cyan/85 transition-all duration-200 px-4 py-2.5 rounded-lg group"
+        >
+          Check price on Amazon
+          <ExternalLink className="w-3 h-3 opacity-70 group-hover:opacity-100 transition-opacity" />
+        </a>
       </div>
     </div>
   );
@@ -114,7 +110,7 @@ export default function ProductCards({ cards }) {
 
       {/* Disclaimer */}
       <p className="text-center text-xs text-muted-foreground font-mono mt-5 opacity-60">
-        Prices are approximate. Amazon affiliate tag: fpscalc-20 (placeholder)
+        Prices change frequently — click to see live pricing on Amazon. Affiliate tag: fpscalc-20 (placeholder)
       </p>
     </div>
   );

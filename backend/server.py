@@ -183,19 +183,19 @@ QUALITY_MULTIPLIERS = {
 }
 
 PRODUCT_CARDS = [
-    {"name": "NVIDIA RTX 5090",              "category": "GPU", "description": "Blackwell flagship. 20% faster than RTX 4090, 32GB VRAM.",    "price": "$1,999", "tier": "Flagship", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+5090&tag=fpscalc-20"},
-    {"name": "NVIDIA RTX 5080",              "category": "GPU", "description": "Next-gen powerhouse. Faster than RTX 4090 for less.",         "price": "$999",   "tier": "Flagship", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+5080&tag=fpscalc-20"},
-    {"name": "NVIDIA RTX 4090",              "category": "GPU", "description": "The 4K gaming king. Still unmatched in raw rasterization.",    "price": "$1,599", "tier": "Flagship", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+4090&tag=fpscalc-20"},
-    {"name": "NVIDIA RTX 4070 Super",        "category": "GPU", "description": "Best 1440p value. Dominates competitive and AAA titles.",      "price": "$599",   "tier": "High-End", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+4070+Super&tag=fpscalc-20"},
-    {"name": "NVIDIA RTX 4070",              "category": "GPU", "description": "Excellent 1440p GPU. Great performance-per-watt.",             "price": "$549",   "tier": "High-End", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+4070&tag=fpscalc-20"},
-    {"name": "AMD RX 7900 XTX",              "category": "GPU", "description": "AMD flagship with 24GB VRAM. Outstanding 4K value.",           "price": "$749",   "tier": "Flagship", "url": "https://www.amazon.com/s?k=AMD+RX+7900+XTX&tag=fpscalc-20"},
-    {"name": "AMD RX 7800 XT",               "category": "GPU", "description": "Best mid-range bang for buck. Great 1440p performance.",       "price": "$479",   "tier": "High-End", "url": "https://www.amazon.com/s?k=AMD+RX+7800+XT&tag=fpscalc-20"},
-    {"name": "AMD Ryzen 9 7950X3D",          "category": "CPU", "description": "Ultimate gaming CPU — 3D V-Cache + 16 cores. Unstoppable.",     "price": "$699",   "tier": "Flagship", "url": "https://www.amazon.com/s?k=Ryzen+9+7950X3D&tag=fpscalc-20"},
-    {"name": "AMD Ryzen 7 7800X3D",          "category": "CPU", "description": "#1 pure gaming CPU. 3D V-Cache dominates at all resolutions.",  "price": "$449",   "tier": "Flagship", "url": "https://www.amazon.com/s?k=Ryzen+7+7800X3D&tag=fpscalc-20"},
-    {"name": "Intel Core i9-13900K",         "category": "CPU", "description": "Intel powerhouse. Blazing fast for gaming and workloads.",      "price": "$549",   "tier": "Flagship", "url": "https://www.amazon.com/s?k=Intel+i9-13900K&tag=fpscalc-20"},
-    {"name": "Intel Core i5-13600K",         "category": "CPU", "description": "Best value gaming CPU. Stellar performance per dollar.",        "price": "$299",   "tier": "Mid-Range","url": "https://www.amazon.com/s?k=Intel+i5-13600K&tag=fpscalc-20"},
-    {"name": "G.Skill Ripjaws 32GB DDR4",    "category": "RAM", "description": "Top DDR4 kit for AM4 and older Intel platforms.",               "price": "$89",    "tier": "Mid-Range","url": "https://www.amazon.com/s?k=G.Skill+Ripjaws+32GB+DDR4-3600&tag=fpscalc-20"},
-    {"name": "G.Skill Trident Z5 32GB DDR5", "category": "RAM", "description": "Premium DDR5 for AM5 and Intel 12th/13th gen platforms.",       "price": "$119",   "tier": "High-End", "url": "https://www.amazon.com/s?k=G.Skill+Trident+Z5+32GB+DDR5-6000&tag=fpscalc-20"},
+    {"name": "NVIDIA RTX 5090",              "category": "GPU", "description": "Blackwell flagship. 20% faster than RTX 4090, 32GB VRAM.",    "tier": "Flagship", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+5090&tag=fpscalc-20"},
+    {"name": "NVIDIA RTX 5080",              "category": "GPU", "description": "Next-gen powerhouse. Faster than RTX 4090 for less.",         "tier": "Flagship", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+5080&tag=fpscalc-20"},
+    {"name": "NVIDIA RTX 4090",              "category": "GPU", "description": "The 4K gaming king. Still unmatched in raw rasterization.",    "tier": "Flagship", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+4090&tag=fpscalc-20"},
+    {"name": "NVIDIA RTX 4070 Super",        "category": "GPU", "description": "Best 1440p value. Dominates competitive and AAA titles.",      "tier": "High-End", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+4070+Super&tag=fpscalc-20"},
+    {"name": "NVIDIA RTX 4070",              "category": "GPU", "description": "Excellent 1440p GPU. Great performance-per-watt.",             "tier": "High-End", "url": "https://www.amazon.com/s?k=NVIDIA+RTX+4070&tag=fpscalc-20"},
+    {"name": "AMD RX 7900 XTX",              "category": "GPU", "description": "AMD flagship with 24GB VRAM. Outstanding 4K value.",           "tier": "Flagship", "url": "https://www.amazon.com/s?k=AMD+RX+7900+XTX&tag=fpscalc-20"},
+    {"name": "AMD RX 7800 XT",               "category": "GPU", "description": "Best mid-range bang for buck. Great 1440p performance.",       "tier": "High-End", "url": "https://www.amazon.com/s?k=AMD+RX+7800+XT&tag=fpscalc-20"},
+    {"name": "AMD Ryzen 9 7950X3D",          "category": "CPU", "description": "Ultimate gaming CPU — 3D V-Cache + 16 cores. Unstoppable.",   "tier": "Flagship", "url": "https://www.amazon.com/s?k=Ryzen+9+7950X3D&tag=fpscalc-20"},
+    {"name": "AMD Ryzen 7 7800X3D",          "category": "CPU", "description": "#1 pure gaming CPU. 3D V-Cache dominates at all resolutions.", "tier": "Flagship", "url": "https://www.amazon.com/s?k=Ryzen+7+7800X3D&tag=fpscalc-20"},
+    {"name": "Intel Core i9-13900K",         "category": "CPU", "description": "Intel powerhouse. Blazing fast for gaming and workloads.",     "tier": "Flagship", "url": "https://www.amazon.com/s?k=Intel+i9-13900K&tag=fpscalc-20"},
+    {"name": "Intel Core i5-13600K",         "category": "CPU", "description": "Best value gaming CPU. Stellar performance per dollar.",       "tier": "Mid-Range","url": "https://www.amazon.com/s?k=Intel+i5-13600K&tag=fpscalc-20"},
+    {"name": "G.Skill Ripjaws 32GB DDR4",    "category": "RAM", "description": "Top DDR4 kit for AM4 and older Intel platforms.",              "tier": "Mid-Range","url": "https://www.amazon.com/s?k=G.Skill+Ripjaws+32GB+DDR4-3600&tag=fpscalc-20"},
+    {"name": "G.Skill Trident Z5 32GB DDR5", "category": "RAM", "description": "Premium DDR5 for AM5 and Intel 12th/13th gen platforms.",      "tier": "High-End", "url": "https://www.amazon.com/s?k=G.Skill+Trident+Z5+32GB+DDR5-6000&tag=fpscalc-20"},
 ]
 
 
